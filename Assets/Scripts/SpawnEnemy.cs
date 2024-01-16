@@ -5,7 +5,7 @@ using UnityEngine;
 public class SpawnEnemy : MonoBehaviour
 {
     [SerializeField] GameObject enemy;
-    // Start is called before the first frame update
+    
     void Start()
     {
         StartSpawn();
@@ -20,7 +20,7 @@ public class SpawnEnemy : MonoBehaviour
     {
         while (true)
         {
-            Instantiate(enemy, new Vector3(Random.Range(-10.5f, 10.5f), Random.Range(-4.5f, 4.5f), 0), Quaternion.identity);
+            Instantiate(enemy, new Vector3(Random.Range(-10.5f, 7f), Random.Range(0, 4.5f), 0), Quaternion.identity);
             yield return new WaitForSeconds(tiempo);
         }
     }

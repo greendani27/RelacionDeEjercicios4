@@ -1,39 +1,39 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class gameController : MonoBehaviour
 {
-    [SerializeField] GameObject[] startHud;
-    [SerializeField] GameObject[] gameplayHud;
-    [SerializeField] GameObject player
-        ;
-    bool gameStarted = false;
+    [SerializeField] bool gameStarted;
+    Text timer;
     void Update()
     {
-        if (!gameStarted && Input.GetKeyDown(KeyCode.Return))
+        changeScene();
+    }
+
+    void changeScene()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && !gameStarted)
         {
-            for (int i = 0; i < startHud.Length; i++) {
-                startHud[i].SetActive(false);
-            }
-            for (int i = 0; i < gameplayHud.Length; i++)
-            {
-                gameplayHud[i].SetActive(true);
-            }
-            player.SetActive(true);
+            SceneManager.LoadScene("Game");
             gameStarted = true;
         }
-        else if (gameStarted && Input.GetKeyDown(KeyCode.Escape)) {
-            for (int i = 0; i < startHud.Length; i++)
-            {
-                startHud[i].SetActive(true);
-            }
-            for (int i = 0; i < gameplayHud.Length; i++)
-            {
-                gameplayHud[i].SetActive(false);
-            }
-            player.SetActive(false);
+        else if (Input.GetKeyDown(KeyCode.Escape) && gameStarted)
+        {
+            SceneManager.LoadScene("SplashScreen");
             gameStarted = false;
         }
+        if (SceneManager.GetActiveScene().name.Equals("Game"))
+        {
+            GameObject.FindGameObjectWithTag("timer").GetComponent<Text>().text = Time.time.ToString();
+
+        }
+    }
+    public void DestroyGameobject(GameObject bullet, GameObject enemy)
+    {
+        Destroy(bullet);
+        Destroy(enemy);
     }
 }
