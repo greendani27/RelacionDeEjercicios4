@@ -9,5 +9,9 @@ public class MoveEnemy : MonoBehaviour
     void Update()
     {
         transform.Translate(new Vector3(1, 0, 0) * moveSpeed * Time.deltaTime);
+
+        if (transform.position.x > 12) {
+            Destroy(gameObject);
+        }
     }
 }
